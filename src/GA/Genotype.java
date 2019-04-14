@@ -4,19 +4,15 @@ public class Genotype implements Comparable<Genotype>{
 
     private int tick;
     private boolean note;
-    private String noteName;
-    private int octave;
     private int key;
     private int velocity;
     private Long fitness;
 
-    public Genotype(Genotype gene) {
-        this.tick = gene.getTick();
-        this.key = gene.getKey();
-        this.note = gene.isNote();
-        this.noteName = gene.getNoteName();
-        this.velocity = gene.getVelocity();
-        this.octave = gene.getOctave();
+    public Genotype(int tick,int key,boolean note, int velocity) {//made this change to make it simple. before even though it seems to be injecting we are creating a object and again injecting the same object into constructor that's why i have changed it.
+        this.tick = tick;
+        this.key = key;
+        this.note = note;
+        this.velocity = velocity;
     }
 
 
@@ -34,22 +30,6 @@ public class Genotype implements Comparable<Genotype>{
 
     public void setNote(boolean note) {
         this.note = note;
-    }
-
-    public String getNoteName() {
-        return noteName;
-    }
-
-    public void setNoteName(String noteName) {
-        this.noteName = noteName;
-    }
-
-    public int getOctave() {
-        return octave;
-    }
-
-    public void setOctave(int octave) {
-        this.octave = octave;
     }
 
     public int getKey() {
