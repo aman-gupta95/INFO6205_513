@@ -1,11 +1,21 @@
 package GA;
 import java.util.ArrayList;
-public class Individual {
 
-    ArrayList<Genotype> individual;
+public class Individual implements Comparable<Individual>{
 
-    public Individual() {
-        this.individual = new ArrayList<Genotype>();
+    private ArrayList<Genotype> individual;
+    private Long fitness;
+
+    public Long getFitness() {
+        return fitness;
+    }
+
+    public void setFitness(Long fitness) {
+        this.fitness = fitness;
+    }
+
+    public Individual(ArrayList<Genotype> genes) {
+        this.individual = genes;
     }
 
     public ArrayList<Genotype> getIndividual() {
@@ -22,5 +32,17 @@ public class Individual {
 
     public Genotype getGene(int i){
         return individual.get(i);
+    }
+
+
+    @Override
+    public int compareTo(Individual o) {
+        // TODO Auto-generated method stub
+        return fitness.compareTo(o.getFitness());
+    }
+
+    @Override
+    public String toString() {
+        return fitness.toString();
     }
 }

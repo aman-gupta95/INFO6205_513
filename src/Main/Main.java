@@ -3,13 +3,21 @@ package Main;
 import GA.Genotype;
 import GA.Individual;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class Main {
 
+    private static final int POOL_SIZE = 500;
+
+    public static void main(String args[]) throws Exception {
+        SeeMidi midi = new SeeMidi();
+        midi.parseMidi();
+    }
 
     public Individual generateIndividual(){
-        Individual individual=new Individual();
+        ArrayList<Genotype> genes = new ArrayList<>();
+        Individual individual = new Individual(genes);
         for(int i= 0;i<200;i++){
             int tick = getRandomTick(0,1100);
             boolean note = getRandomNote();
