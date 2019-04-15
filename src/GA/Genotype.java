@@ -8,13 +8,6 @@ public class Genotype implements Comparable<Genotype>{
     private int velocity;
     private Long fitness;
 
-    public Genotype(int tick,int key,boolean note, int velocity) {//made this change to make it simple. before even though it seems to be injecting we are creating a object and again injecting the same object into constructor that's why i have changed it.
-        this.tick = tick;
-        this.key = key;
-        this.note = note;
-        this.velocity = velocity;
-    }
-
 
     public int getTick() {
         return tick;
