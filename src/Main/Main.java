@@ -5,6 +5,7 @@ import GA.Individual;
 import GA.Populate;
 import ProcessSound.SeeMidi;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Main {
@@ -14,10 +15,11 @@ public class Main {
     private static final int MAX_KEY = 127;
 
     private static ArrayList<Individual> poolOfSounds;
+    private static ArrayList<Genotype> originalSound;
 
     public static void main(String args[]) throws Exception {
         SeeMidi midi = new SeeMidi();
-        midi.parseMidi();
+        originalSound = midi.parseMidi();
         int POP_SIZE = midi.getTrackSize();
         int TICK_LENGTH = midi.getTickLength();
         long MAX_TICK = midi.getTick();
