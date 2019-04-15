@@ -1,6 +1,9 @@
 package ProcessSound;
 
+import GA.Genotype;
+
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.sound.midi.MidiEvent;
 import javax.sound.midi.MidiMessage;
@@ -16,47 +19,56 @@ public class SeeMidi {
     private static final String AUDIO = "audio.mid";
     private static Sequence sequence;
 
-    public void parseMidi() throws Exception {
+    public ArrayList<Genotype> parseMidi() throws Exception {
 
         this.sequence = MidiSystem.getSequence(new File(AUDIO));
-
+        ArrayList<Genotype> originalSound = new ArrayList<>();
         int trackNumber = 0;
         for (Track track :  sequence.getTracks()) {
             trackNumber++;
             System.out.println("Track " + trackNumber + ": size = " + track.size());
             System.out.println();
             for (int i=0; i < track.size(); i++) {
+                Genotype gene = new Genotype();
                 MidiEvent event = track.get(i);
-                System.out.print("@" + String.valueOf(event.getTick()) + " tickLength: "+String.valueOf(sequence.getResolution()));
+                gene.setTick(event.getTick());
+//                System.out.print("@" + String.valueOf(event.getTick()) + " tickLength: "+String.valueOf(sequence.getResolution()));
                 MidiMessage message = event.getMessage();
                 if (message instanceof ShortMessage) {
                     ShortMessage sm = (ShortMessage) message;
-                    System.out.print("Channel: " + sm.getChannel() + " ");
+//                    System.out.print("Channel: " + sm.getChannel() + " ");
                     if (sm.getCommand() == NOTE_ON) {
                         int key = sm.getData1();
-                        int octave = (key / 12)-1;
-                        int note = key % 12;
-                        String noteName = NOTE_NAMES[note];
+//                        int octave = (key / 12)-1;
+//                        int note = key % 12;
+//                        String noteName = NOTE_NAMES[note];
                         int velocity = sm.getData2();
-                        System.out.println("Note on, " + noteName + " octave="+octave + " key=" + key + " velocity: " + velocity);
+                        gene.setKey(key);
+                        gene.setVelocity(velocity);
+                        gene.setNote(true);
+//                        System.out.println("Note on, " + noteName + " octave="+octave + " key=" + key + " velocity: " + velocity);
                     } else if (sm.getCommand() == NOTE_OFF) {
                         int key = sm.getData1();
-                        int octave = (key / 12)-1;
-                        int note = key % 12;
-                        String noteName = NOTE_NAMES[note];
+//                        int octave = (key / 12)-1;
+//                        int note = key % 12;
+//                        String noteName = NOTE_NAMES[note];
                         int velocity = sm.getData2();
-                        System.out.println("Note off, " + noteName + " octave="+ octave + " key=" + key + " velocity: " + velocity);
+                        gene.setKey(key);
+                        gene.setVelocity(velocity);
+                        gene.setNote(false);
+//                        System.out.println("Note off, " + noteName + " octave="+ octave + " key=" + key + " velocity: " + velocity);
                     } else {
                         System.out.println("Command:" + sm.getCommand());
                     }
                 } else {
                     System.out.println("Other message: " + message.getClass());
                 }
+                originalSound.add(gene);
             }
 
             System.out.println();
         }
-
+        return originalSound;
     }
 
     public int getTrackSize(){
