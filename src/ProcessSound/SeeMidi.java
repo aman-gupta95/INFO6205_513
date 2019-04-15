@@ -1,4 +1,4 @@
-package Main;
+package ProcessSound;
 
 import java.io.File;
 
@@ -10,14 +10,15 @@ import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 
 public class SeeMidi {
-    public static final int NOTE_ON = 0x90;
-    public static final int NOTE_OFF = 0x80;
-    public static final String[] NOTE_NAMES = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
-    public static final String AUDIO = "audio.mid";
+    private static final int NOTE_ON = 0x90;
+    private static final int NOTE_OFF = 0x80;
+    private static final String[] NOTE_NAMES = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
+    private static final String AUDIO = "audio.mid";
+    private static Sequence sequence;
 
     public void parseMidi() throws Exception {
 
-        Sequence sequence = MidiSystem.getSequence(new File(AUDIO));
+        this.sequence = MidiSystem.getSequence(new File(AUDIO));
 
         int trackNumber = 0;
         for (Track track :  sequence.getTracks()) {
@@ -56,6 +57,21 @@ public class SeeMidi {
             System.out.println();
         }
 
+    }
+
+    public int getTrackSize(){
+        Track track = sequence.getTracks()[0];
+        return track.size();
+    }
+
+    public int getTickLength(){
+        return sequence.getResolution();
+    }
+
+    public long getTick(){
+        Track track = sequence.getTracks()[0];
+        MidiEvent event = track.get(track.size()-1);
+        return event.getTick();
     }
         //i have commented above code to test this
 //        System.out.println("--------------------------------------------------------------------------------------------");
