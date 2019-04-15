@@ -2,18 +2,18 @@ package GA;
 
 public class Genotype implements Comparable<Genotype>{
 
-    private int tick;
+    private long tick;
     private boolean note;
     private int key;
     private int velocity;
     private Long fitness;
 
 
-    public int getTick() {
+    public long getTick() {
         return tick;
     }
 
-    public void setTick(int tick) {
+    public void setTick(long tick) {
         this.tick = tick;
     }
 
