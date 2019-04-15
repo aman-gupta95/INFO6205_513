@@ -3,19 +3,33 @@ package Main;
 import GA.Genotype;
 import GA.Individual;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class Main {
 
+    private static final int POOL_SIZE = 500;
+    private static final int MAX_VELOCITY = 126;
+    private static final int MAX_PITCH = 127;
+
+    public static void main(String args[]) throws Exception {
+        SeeMidi midi = new SeeMidi();
+        midi.parseMidi();
+    }
 
     public Individual generateIndividual(){
-        Individual individual=new Individual();
+        ArrayList<Genotype> genes = new ArrayList<>();
+        Individual individual = new Individual(genes);
         for(int i= 0;i<200;i++){
             int tick = getRandomTick(0,1100);
             boolean note = getRandomNote();
             int key = getRandomKey(1,100);
             int velocity = getRandomVelocity(10,100);
-            Genotype gene = new Genotype(tick,key,note,velocity);
+            Genotype gene = new Genotype();
+            gene.setTick(tick);
+            gene.setNote(note);
+            gene.setVelocity(velocity);
+            gene.setKey(key);
             individual.addGene(gene);
 
         }
