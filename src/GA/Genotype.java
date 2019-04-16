@@ -2,20 +2,10 @@ package GA;
 
 public class Genotype implements Comparable<Genotype>{
 
-    private long tick;
     private boolean note;
     private int key;
     private int velocity;
-    private Long fitness;
-
-
-    public long getTick() {
-        return tick;
-    }
-
-    public void setTick(long tick) {
-        this.tick = tick;
-    }
+    private Long gene_fitness;
 
     public boolean isNote() {
         return note;
@@ -42,16 +32,16 @@ public class Genotype implements Comparable<Genotype>{
     }
 
 
-    public Long getFitness() {
-        return fitness;
+    public Long getGene_fitness() {
+        return gene_fitness;
     }
 
     public void setFitness(Long fitness) {
-        this.fitness = fitness;
+        this.gene_fitness = fitness;
     }
 
     @Override
     public int compareTo(Genotype gene){
-        return fitness.compareTo(gene.getFitness());
+        return gene_fitness.compareTo(gene.getGene_fitness());
     }
 }
