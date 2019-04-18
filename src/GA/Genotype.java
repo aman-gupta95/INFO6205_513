@@ -7,6 +7,16 @@ public class Genotype implements Comparable<Genotype>{
     private int velocity;
     private Long gene_fitness;
 
+    public Genotype(Genotype gene) {
+        this.note = gene.isNote();
+        this.key = gene.getKey();
+        this.velocity = gene.getVelocity();
+        this.gene_fitness = getGene_fitness();
+
+    }
+
+    public Genotype(){}
+
     public boolean isNote() {
         return note;
     }

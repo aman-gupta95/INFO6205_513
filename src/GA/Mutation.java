@@ -15,7 +15,7 @@ public class Mutation {
         return genotype;
     }
 
-    public static void mutate(ArrayList<Genotype> geneList, int maxFont, Individual goal,int maxKey, int maxVelocity) {
+    public static void mutate(ArrayList<Genotype> geneList,int maxKey, int maxVelocity) {
         Random random=new Random();
         int position = random.nextInt(geneList.size());
         Genotype gene = geneList.get(position);
