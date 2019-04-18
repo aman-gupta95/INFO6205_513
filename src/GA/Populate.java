@@ -8,7 +8,7 @@ public class Populate {
         for(int i = 0; i < poolSize; i++){
             ArrayList<Genotype> genes = new ArrayList<>();
             for(int j = 0; j < popSize; j++){
-                genes.add(Mutation.getRandomGenes(maxKey, maxVelocity, maxTick));
+                genes.add(Mutation.getRandomGenes(maxKey, maxVelocity));
             }
             soundPopulation.add(new Individual(genes));
         }
