@@ -36,7 +36,7 @@ public class Genotype implements Comparable<Genotype>{
         return gene_fitness;
     }
 
-    public void setFitness(Long fitness) {
+    public void setGene_fitness(Long fitness) {
         this.gene_fitness = fitness;
     }
 
