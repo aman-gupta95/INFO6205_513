@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bcba578e-bb43-4e09-8a0c-33151b73eb2f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/GA/CrossOver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GA/Genotype.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GA/Genotype.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GA/Mutation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GA/Mutation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GA/Populate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GA/Populate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GA/CrossOver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GA/CrossOver.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -41,13 +38,13 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1107" />
+          <entry key="java" value="1108" />
           <entry key="xml" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1107" />
+          <entry key="JAVA" value="1108" />
           <entry key="XML" value="3" />
         </counts>
       </usages-collector>
@@ -87,7 +84,14 @@
       </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GA/CrossOver.java">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="279">
+              <caret line="20" column="13" lean-forward="true" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -142,7 +146,7 @@
         <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="7365">
-              <caret line="540" column="10" selection-start-line="540" selection-start-column="10" selection-end-line="540" selection-end-column="10" />
+              <caret line="538" column="10" selection-start-line="538" selection-start-column="10" selection-end-line="538" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -232,7 +236,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555620286909" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555620566785" />
     <property name="last_opened_file_path" value="$USER_HOME$/Downloads/jfugue-5.0.9.jar!/" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -303,12 +307,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1555118002223</updated>
-      <workItem from="1555616269683" duration="3890000" />
+      <workItem from="1555616269683" duration="4147000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7982000" />
+    <option name="totallyTimeSpent" value="8239000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="828" extended-state="0" />
@@ -393,7 +397,7 @@
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7365">
-          <caret line="540" column="10" selection-start-line="540" selection-start-column="10" selection-end-line="540" selection-end-column="10" />
+          <caret line="538" column="10" selection-start-line="538" selection-start-column="10" selection-end-line="538" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -446,7 +450,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GA/CrossOver.java">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="20" column="13" lean-forward="true" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="masterDetails">
