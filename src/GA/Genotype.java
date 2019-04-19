@@ -47,7 +47,7 @@ public class Genotype implements Comparable<Genotype>{
     }
 
     public void setGene_fitness(Long fitness) {
-        this.gene_fitness = fitness;
+        this.gene_fitness = Math.abs(fitness);
     }
 
     @Override
