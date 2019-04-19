@@ -34,8 +34,38 @@ public class CreateMidi {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
+    }
+    public static void generateMidi(List<Long> ticks, Individual ind, int tickLength, String type) {
+        List<Genotype> genes = ind.getIndividual();
+        try {
+            sequence = new Sequence((float) 0.0, tickLength);
+            Track track = sequence.createTrack();
+            File file=null;
+            for (int i = 0; i < genes.size(); i++) {
+                MidiMessage sm = new ShortMessage(genes.get(i).isNote() ? 0x90 : 0x80, 0, genes.get(i).getKey(), genes.get(i).getVelocity());
+                MidiEvent event = new MidiEvent(sm, ticks.get(i));
+                track.add(event);
+            }
+
+            if(type.equals("original")){
+                file = new File(ORIGINAL_PATH+ "_"+type +".mid");
+            }
+            if(type.equals("final")){
+                file = new File(SOUND_SAVE_PATH+ "_"+type +".mid");
+                MidiSystem.write(sequence, 0, file);
+                file = new File(ORIGINAL_PATH+ "_"+type +".mid");
+            }
+
+            MidiSystem.write(sequence, 0, file);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }
+
+
 
 
 

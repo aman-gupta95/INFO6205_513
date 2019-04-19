@@ -63,7 +63,7 @@ public class Main {
     }
 
     private static void createMidi(Individual bestSound, String type){
-//        CreateMidi.generateMidi(ticks, bestSound, TICK_LENGTH, type);
+        CreateMidi.generateMidi(ticks, bestSound, TICK_LENGTH, type);
     }
 
 }
