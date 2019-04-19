@@ -22,6 +22,8 @@ public class Main {
     private static ArrayList<Individual> poolOfSounds;
     private static ArrayList<Genotype> originalSound;
     private static List<Long> ticks;
+    private static final int THREADS = 4;
+    private static List<FitnessInParallel> parallelFitnessEvaluators;
 
     public static void main(String args[]) throws Exception {
         SeeMidi midi = new SeeMidi();
@@ -32,6 +34,7 @@ public class Main {
         long MAX_TICK = midi.getTick();
         ticks = midi.getTicks();
         poolOfSounds = Populate.initPool(POOL_SIZE, originalSound.size(), MAX_KEY, MAX_VELOCITY, MAX_TICK);
+        initThreads();
         System.out.println(GOAL_LENGTH);
 
         double maxFitness=0;
@@ -40,9 +43,23 @@ public class Main {
         createMidi(original, "original");
 
         for(int i=0; i<MAX_GENERATIONS && maxFitness<0.99*7*GOAL_LENGTH; i++){
+
+            long time;
+            long startTime = System.currentTimeMillis();
+            fitnessOfMultipleMidis(original,poolOfSounds);
+            long endTime = System.currentTimeMillis();
+            time = (endTime - startTime);
+            System.out.println("parallel processing "+ time +"ms" );
+
+            startTime = System.currentTimeMillis();
             for(int j=0; j<POOL_SIZE; j++) {
                 fit.computeFitnessIndividual(original, poolOfSounds.get(j));
             }
+            endTime = System.currentTimeMillis();
+            time = (endTime - startTime);
+            System.out.println("without parallel processing "+ time +"ms" );
+//            System.out.println("i am here");
+
                 Collections.sort(poolOfSounds,Collections.reverseOrder());
 
                 System.out.println("Generation: "+ (i+1) + " has best individual with Fitness: " + poolOfSounds.get(0).getFitness());
@@ -64,6 +81,57 @@ public class Main {
 
     private static void createMidi(Individual bestSound, String type){
         CreateMidi.generateMidi(ticks, bestSound, TICK_LENGTH, type);
+    }
+
+    private static void fitnessOfMultipleMidis(Individual original,List<Individual> poolOfSounds ) {
+        // split between threads
+        int forOneThread = poolOfSounds.size() /THREADS;
+        for (int i = 0; i < THREADS; i++) {
+            FitnessInParallel evaluator = parallelFitnessEvaluators.get(i);
+            evaluator.setStart(i * forOneThread);
+            evaluator.setEnd((i + 1) * forOneThread + 1);
+            evaluator.setPoolOfSounds(poolOfSounds);
+            if (i + 1 == THREADS) {
+                evaluator.setEnd(poolOfSounds.size());
+            }
+            new Thread(evaluator).start();
+        }
+
+        // see if all done
+        while (!parallelFitnessEvaluatorDone()) {
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    private static boolean parallelFitnessEvaluatorDone() {
+        for (FitnessInParallel evaluator : parallelFitnessEvaluators) {
+            if (!evaluator.isDone()) {
+                return false;
+            }
+        }
+        resetparallelFitnessEvaluator();
+        return true;
+    }
+
+    private static void resetparallelFitnessEvaluator() {
+        for (FitnessInParallel evaluator : parallelFitnessEvaluators) {
+            evaluator.setDone(false);
+        }
+    }
+
+    private static void initThreads() {
+        parallelFitnessEvaluators = new ArrayList<>();
+        for (int i = 0; i < THREADS; i++) {
+            FitnessInParallel evaluator = new FitnessInParallel();
+            evaluator.setPoolOfSounds(poolOfSounds);
+            evaluator.setOriginal(new Individual(originalSound));
+            parallelFitnessEvaluators.add(evaluator);
+        }
     }
 
 }
