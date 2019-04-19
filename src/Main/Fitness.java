@@ -7,7 +7,7 @@ public class Fitness {
 
     public void computeFitnessIndividual(Individual goal, Individual random){
         long total=0;
-        for(int i=0;i<10;i++){
+        for(int i=0;i<goal.getIndividual().size();i++){
             Genotype parent = goal.getGene(i);
             Genotype child = random.getGene(i);
             long fitness = computeFitnessGene(parent,child);
