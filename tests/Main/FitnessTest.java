@@ -119,5 +119,49 @@ public class FitnessTest {
 
 
 
+    @Test
+    public void computeFitnessIndividual_less() throws Exception{
+        SeeMidi midi = new SeeMidi();
+        Individual original=null,i1=null,i2=null;
+        try {
+            ArrayList<Genotype> midi1 = midi.parseMidi("testAudio/generatedAudio100.mid");
+            i1 = new Individual(midi1);
+            ArrayList<Genotype> midi2 = midi.parseMidi("testAudio/generatedAudio1000.mid");
+            i2 = new Individual(midi2);
+            ArrayList<Genotype> originalSound = midi.parseMidi("audio.mid");
+            original = new Individual(originalSound);
 
+        }catch (Exception ex){
+            System.out.println("File not found");
+        }
+        Fitness.computeFitnessIndividual(original, i1);
+        Long fitness1 = i1.getFitness();
+        Fitness.computeFitnessIndividual(original, i2);
+        Long fitness2 = i2.getFitness();
+        assert(fitness2>fitness1);
+
+
+    }
+
+    @Test
+    public void computeFitnessIndividual_greater() throws Exception {
+        SeeMidi midi = new SeeMidi();
+        Individual original=null,i1=null,i2=null;
+        try {
+            ArrayList<Genotype> midi1 = midi.parseMidi("testAudio/generatedAudio2700.mid");
+            i1 = new Individual(midi1);
+            ArrayList<Genotype> midi2 = midi.parseMidi("testAudio/generatedAudio400.mid");
+            i2 = new Individual(midi2);
+            ArrayList<Genotype> originalSound = midi.parseMidi("audio.mid");
+            original = new Individual(originalSound);
+
+        }catch (Exception ex){
+            System.out.println("File not found");
+        }
+        Fitness.computeFitnessIndividual(original, i1);
+        Long fitness1 = i1.getFitness();
+        Fitness.computeFitnessIndividual(original, i2);
+        Long fitness2 = i2.getFitness();
+        assert(fitness1>fitness2);
+    }
 }
