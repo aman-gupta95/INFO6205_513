@@ -17,15 +17,33 @@ public class Fitness {
         random.setFitness(total);
     }
 
-    public long computeFitnessGene(Genotype parent,Genotype child){
-        long fitness = 0, diff_key=0,diff_vel=0;
-        if(parent.isNote()==child.isNote()){
-            fitness++;
-        }
-        diff_key=parent.getKey()-child.getKey();
-        diff_vel=parent.getVelocity()-child.getVelocity();
-        fitness+=diff_key+diff_vel;
-        return fitness;
-
+public long computeFitnessGene(Genotype parent,Genotype child){
+    long fitness = 0, diff_key=0,diff_vel=0;
+    if(parent.isNote()==child.isNote()){
+        fitness++;
     }
+    diff_key=Math.abs(parent.getKey()-child.getKey());
+    if(diff_key==0){
+        fitness++;
+    }
+    diff_vel=Math.abs(parent.getVelocity()-child.getVelocity());
+    if(diff_vel==0){
+        fitness++;
+    }
+    if(fitness==3){
+        fitness++;
+    }
+    if(diff_vel==0 && diff_key==0){
+        fitness++;
+    }
+    if(diff_vel==0 && parent.isNote()==child.isNote()){
+        fitness++;
+    }
+    if(diff_key==0 && parent.isNote()==child.isNote()){
+        fitness++;
+    }
+
+    return fitness;
+
+}
 }
