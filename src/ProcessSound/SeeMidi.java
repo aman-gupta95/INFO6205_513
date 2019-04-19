@@ -4,6 +4,7 @@ import GA.Genotype;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.sound.midi.MidiEvent;
 import javax.sound.midi.MidiMessage;
@@ -18,20 +19,27 @@ public class SeeMidi {
     private static final String[] NOTE_NAMES = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
     private static final String AUDIO = "audio.mid";
     private static Sequence sequence;
+    private  int command;
+    private  List<Long> ticks;
 
     public ArrayList<Genotype> parseMidi() throws Exception {
-
+        int[] arr = MidiSystem.getMidiFileTypes(MidiSystem.getSequence(new File(AUDIO)));
+        for(int a: arr){
+            System.out.print(a+" ");
+        }
+        System.out.println();
         this.sequence = MidiSystem.getSequence(new File(AUDIO));
         ArrayList<Genotype> originalSound = new ArrayList<>();
+        ticks = new ArrayList<>();
         int trackNumber = 0;
         for (Track track :  sequence.getTracks()) {
             trackNumber++;
-            System.out.println("Track " + trackNumber + ": size = " + track.size());
+            System.out.println("Track " + trackNumber + ": size = " + track.size()+" division type: "+sequence.getDivisionType());
             System.out.println();
             for (int i=0; i < track.size(); i++) {
                 Genotype gene = new Genotype();
                 MidiEvent event = track.get(i);
-                gene.setTick(event.getTick());
+                ticks.add(event.getTick());
 //                System.out.print("@" + String.valueOf(event.getTick()) + " tickLength: "+String.valueOf(sequence.getResolution()));
                 MidiMessage message = event.getMessage();
                 if (message instanceof ShortMessage) {
@@ -58,10 +66,12 @@ public class SeeMidi {
                         gene.setNote(false);
 //                        System.out.println("Note off, " + noteName + " octave="+ octave + " key=" + key + " velocity: " + velocity);
                     } else {
-                        System.out.println("Command:" + sm.getCommand());
+                        System.out.println("Command:" + sm.getCommand()+" "+ sm.getChannel());
+                        this.command = sm.getCommand();
                     }
                 } else {
-                    System.out.println("Other message: " + message.getClass());
+                    System.out.println("Other message: " + message.getClass()+" " +message.toString());
+
                 }
                 originalSound.add(gene);
             }
@@ -85,7 +95,24 @@ public class SeeMidi {
         MidiEvent event = track.get(track.size()-1);
         return event.getTick();
     }
-        //i have commented above code to test this
+
+    public  int getCommand() {
+        return command;
+    }
+
+    public  void setCommand(int command) {
+        this.command = command;
+    }
+
+    public  List<Long> getTicks() {
+        return ticks;
+    }
+
+    public  void setTicks(List<Long> ticks) {
+        this.ticks = ticks;
+    }
+
+    //i have commented above code to test this
 //        System.out.println("--------------------------------------------------------------------------------------------");
 //        Main main = new Main(); //this is just a sample data we need to fix the range yet and it generate 200 genes for a particular individual
 //        main.printIndividual(main.generateIndividual());
