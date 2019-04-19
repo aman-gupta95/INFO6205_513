@@ -2,7 +2,7 @@ package GA;
 import java.util.ArrayList;
 import java.util.Random;
 public class CrossOver {
-    private static Individual crossOver(ArrayList<Individual> newPool, int best, int maxKey, int maxVelocity, int mutationCount,int goal_length) {
+    private static Individual crossOver(ArrayList<Individual> newPool, int best, int maxKey, int maxVelocity, int mutationCount,int goal_length,Individual original) {
         // get random 2 from elite
         Random random = new Random();
         int first = random.nextInt(best);
@@ -14,17 +14,17 @@ public class CrossOver {
         // mate the two
         switch (random.nextInt(2)) {
             case 0: {//just randomly shuffle
-                individual = crossOver(newPool.get(first), newPool.get(second), mutationCount, maxKey, maxVelocity);
+                individual = crossOver(newPool.get(first), newPool.get(second), mutationCount, maxKey, maxVelocity,original);
             }
             case 1: {//generate by random index
-                individual = crossOver(newPool.get(first), newPool.get(second),mutationCount, maxKey, maxVelocity, goal_length);
+                individual = crossOver(newPool.get(first), newPool.get(second),mutationCount, maxKey, maxVelocity, goal_length,original);
             }
         }
         return individual;
     }
 
 
-    public static Individual crossOver(Individual first, Individual second, int mutationCount, int maxKey, int maxVelocity) {
+    public static Individual crossOver(Individual first, Individual second, int mutationCount, int maxKey, int maxVelocity,Individual original) {
         Random random = new Random();
         ArrayList<Genotype> genes = new ArrayList<>();
         Individual individual = new Individual(genes);
@@ -42,12 +42,12 @@ public class CrossOver {
         }
 
         for (int i = 0; i < mutationCount; i++) {
-            Mutation.mutate(genes, maxKey, maxVelocity);
+            Mutation.mutate(genes, maxKey, maxVelocity,original);
         }
         return individual;
     }
 
-    public static Individual crossOver(Individual first, Individual second, int mutationCount, int maxKey, int maxVelocity, int goal_length) {
+    public static Individual crossOver(Individual first, Individual second, int mutationCount, int maxKey, int maxVelocity, int goal_length, Individual original) {
         Random random = new Random();
         ArrayList<Genotype> genes = new ArrayList<>();
         int temp = random.nextInt(goal_length);
@@ -59,18 +59,18 @@ public class CrossOver {
         }
         Individual individual = new Individual(genes);
         for (int i = 0; i < mutationCount; i++) {
-            Mutation.mutate(genes, maxKey, maxVelocity);
+            Mutation.mutate(genes, maxKey, maxVelocity,original);
         }
         return individual;
     }
 
-    public static ArrayList<Individual> mateBest(ArrayList<Individual> pool, int best, int goal_length, int mutationCount, int maxKey, int maxVelocity) {
+    public static ArrayList<Individual> mateBest(ArrayList<Individual> pool, int best, int goal_length, int mutationCount, int maxKey, int maxVelocity,Individual original) {
         ArrayList<Individual> newPool = new ArrayList<>();
         for (int i = 0; i < pool.size(); i++) {
             if (i < best) {
                 newPool.add(pool.get(i));
             } else {
-                newPool.add(crossOver(newPool, best, maxKey, maxVelocity, mutationCount,goal_length));
+                newPool.add(crossOver(newPool, best, maxKey, maxVelocity, mutationCount,goal_length,original));
             }
         }
         return newPool;

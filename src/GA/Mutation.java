@@ -15,7 +15,7 @@ public class Mutation {
         return genotype;
     }
 
-    public static void mutate(ArrayList<Genotype> geneList,int maxKey, int maxVelocity) {
+    public static void mutate(ArrayList<Genotype> geneList,int maxKey, int maxVelocity,Individual original) {
         Random random=new Random();
         int position = random.nextInt(geneList.size());
         Genotype gene = geneList.get(position);
@@ -23,7 +23,7 @@ public class Mutation {
         switch (random.nextInt(6)) {
             case 0:
                 // remove one Gene and add new Gene
-                gene = getRandomGenes(maxKey,maxVelocity);
+                gene = original.getGene(position);
                 geneList.remove(position);
                 geneList.add(gene);
                 break;

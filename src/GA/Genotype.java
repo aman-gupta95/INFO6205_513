@@ -47,11 +47,21 @@ public class Genotype implements Comparable<Genotype>{
     }
 
     public void setGene_fitness(Long fitness) {
-        this.gene_fitness = Math.abs(fitness);
+        this.gene_fitness = fitness;
     }
 
     @Override
     public int compareTo(Genotype gene){
         return gene_fitness.compareTo(gene.getGene_fitness());
+    }
+
+    @Override
+    public String toString() {
+        return "Genotype{" +
+                "note=" + note +
+                ", key=" + key +
+                ", velocity=" + velocity +
+                ", gene_fitness=" + gene_fitness +
+                '}';
     }
 }
