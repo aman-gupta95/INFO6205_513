@@ -5,7 +5,7 @@ import GA.Individual;
 
 public class Fitness {
 
-    public void computeFitnessIndividual(Individual goal, Individual random){
+    public static void computeFitnessIndividual(Individual goal, Individual random){
         long total=0;
         for(int i=0;i<goal.getIndividual().size();i++){
             Genotype parent = goal.getGene(i);
@@ -14,10 +14,11 @@ public class Fitness {
             child.setGene_fitness(fitness);
             total+=fitness;
         }
+//        System.out.println("total"+total);
         random.setFitness(total);
     }
 
-public long computeFitnessGene(Genotype parent,Genotype child){
+public static long computeFitnessGene(Genotype parent,Genotype child){
     long fitness = 0, diff_key=0,diff_vel=0;
     if(parent.isNote()==child.isNote()){
         fitness++;

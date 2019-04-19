@@ -22,13 +22,13 @@ public class SeeMidi {
     private  int command;
     private  List<Long> ticks;
 
-    public ArrayList<Genotype> parseMidi() throws Exception {
-        int[] arr = MidiSystem.getMidiFileTypes(MidiSystem.getSequence(new File(AUDIO)));
+    public ArrayList<Genotype> parseMidi(String filename) throws Exception {
+        int[] arr = MidiSystem.getMidiFileTypes(MidiSystem.getSequence(new File(filename)));
         for(int a: arr){
             System.out.print(a+" ");
         }
         System.out.println();
-        this.sequence = MidiSystem.getSequence(new File(AUDIO));
+        this.sequence = MidiSystem.getSequence(new File(filename));
         ArrayList<Genotype> originalSound = new ArrayList<>();
         ticks = new ArrayList<>();
         int trackNumber = 0;
