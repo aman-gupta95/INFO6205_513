@@ -1,29 +1,57 @@
 package Main;
 
-import GA.Genotype;
-import GA.Individual;
-import GA.Populate;
+import GA.*;
+import ProcessSound.CreateMidi;
 import ProcessSound.SeeMidi;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Main {
 
     private static final int POOL_SIZE = 500;
-    private static final int MAX_VELOCITY = 126;
+    private static final int MAX_VELOCITY = 127;
     private static final int MAX_KEY = 127;
-
+    private static final int MAX_GENERATIONS = 1000;
+    private static final int BEST_COUNT = 5;
+    private static int TICK_LENGTH;
     private static ArrayList<Individual> poolOfSounds;
     private static ArrayList<Genotype> originalSound;
+    private static List<Long> ticks;
 
     public static void main(String args[]) throws Exception {
         SeeMidi midi = new SeeMidi();
         originalSound = midi.parseMidi();
         int POP_SIZE = midi.getTrackSize();
-        int TICK_LENGTH = midi.getTickLength();
+        TICK_LENGTH = midi.getTickLength();
         long MAX_TICK = midi.getTick();
+        ticks = midi.getTicks();
         poolOfSounds = Populate.initPool(POOL_SIZE, POP_SIZE, MAX_KEY, MAX_VELOCITY, MAX_TICK);
+        System.out.println(originalSound.size());
+        double maxFitness=0.0;
+        Fitness fit = new Fitness();
+        Individual original = new Individual(originalSound);
+        for(int i=0; i<MAX_GENERATIONS && maxFitness<94.0; i++){
+            for(int j=0; j<poolOfSounds.size(); j++) {
+                fit.computeFitnessIndividual(original, poolOfSounds.get(j));
+            }
+                Collections.sort(poolOfSounds);
+                System.out.println(poolOfSounds.get(0).getFitness());
+                double fitness = 100.00 - (100.00*128/(poolOfSounds.get(0).getFitness()*355));
+                System.out.println("Generation: "+ (i+1) + " has Fitness: " + fitness);
+                if(i%99==0){
+                    createMidi(poolOfSounds.get(0), i);
+                }
+                poolOfSounds = CrossOver.mateBest(poolOfSounds, BEST_COUNT,ticks.size(), 1, MAX_KEY, MAX_VELOCITY);
+                maxFitness = fitness;
+            }
+        }
+
+
+    private static void createMidi(Individual bestSound, int generation){
+        CreateMidi.generateMidi(ticks, bestSound, TICK_LENGTH, generation);
     }
 //
 //    public Individual generateIndividual(){
