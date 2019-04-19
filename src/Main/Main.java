@@ -25,7 +25,7 @@ public class Main {
 
     public static void main(String args[]) throws Exception {
         SeeMidi midi = new SeeMidi();
-        originalSound = midi.parseMidi();
+        originalSound = midi.parseMidi("audio.mid");
         GOAL_LENGTH=originalSound.size();
         int POP_SIZE = midi.getTrackSize();
         TICK_LENGTH = midi.getTickLength();
@@ -40,7 +40,7 @@ public class Main {
         createMidi(original, "original");
 
         for(int i=0; i<MAX_GENERATIONS && maxFitness<0.99*7*GOAL_LENGTH; i++){
-            for(int j=0; j<poolOfSounds.size(); j++) {
+            for(int j=0; j<POOL_SIZE; j++) {
                 fit.computeFitnessIndividual(original, poolOfSounds.get(j));
             }
                 Collections.sort(poolOfSounds,Collections.reverseOrder());

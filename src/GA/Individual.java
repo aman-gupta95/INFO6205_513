@@ -11,7 +11,7 @@ public class Individual implements Comparable<Individual>{
     }
 
     public void setFitness(Long fitness) {
-        this.fitness = Math.abs(fitness);
+        this.fitness = fitness;
     }
 
     public Individual(ArrayList<Genotype> genes) {
