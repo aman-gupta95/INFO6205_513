@@ -34,7 +34,7 @@ public class Main {
         long MAX_TICK = midi.getTick();
         ticks = midi.getTicks();
         poolOfSounds = Populate.initPool(POOL_SIZE, originalSound.size(), MAX_KEY, MAX_VELOCITY, MAX_TICK);
-        //initThreads();
+        initThreads();
         System.out.println(GOAL_LENGTH);
 
         double maxFitness=0;
@@ -46,17 +46,7 @@ public class Main {
         long startTime = System.currentTimeMillis();
         for(int i=0; i<MAX_GENERATIONS && maxFitness<0.99*7*GOAL_LENGTH; i++){
 
-           // fitnessOfMultipleMidis(original,poolOfSounds);
-
-
-//            startTime = System.currentTimeMillis();
-            for(int j=0; j<POOL_SIZE; j++) {
-                fit.computeFitnessIndividual(original, poolOfSounds.get(j));
-            }
-//           endTime = System.currentTimeMillis();
-//            time = (endTime - startTime);
-//            System.out.println("without parallel processing "+ time +"ms" );
-//            System.out.println("i am here");
+            fitnessOfMultipleMidis(original,poolOfSounds);
 
                 Collections.sort(poolOfSounds,Collections.reverseOrder());
 
