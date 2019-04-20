@@ -2,8 +2,8 @@ package Main;
 
 import GA.Genotype;
 import GA.Individual;
+import GA.Mutation;
 import ProcessSound.SeeMidi;
-import com.sun.tools.javah.Gen;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -164,4 +164,5 @@ public class FitnessTest {
         Long fitness2 = i2.getFitness();
         assert(fitness1>fitness2);
     }
+
 }
