@@ -34,7 +34,7 @@ public class Main {
         long MAX_TICK = midi.getTick();
         ticks = midi.getTicks();
         poolOfSounds = Populate.initPool(POOL_SIZE, originalSound.size(), MAX_KEY, MAX_VELOCITY, MAX_TICK);
-        initThreads();
+        //initThreads();
         System.out.println(GOAL_LENGTH);
 
         double maxFitness=0;
@@ -42,22 +42,20 @@ public class Main {
         Individual original = new Individual(originalSound);
         createMidi(original, "original");
 
+        long time;
+        long startTime = System.currentTimeMillis();
         for(int i=0; i<MAX_GENERATIONS && maxFitness<0.99*7*GOAL_LENGTH; i++){
 
-            long time;
-            long startTime = System.currentTimeMillis();
-            fitnessOfMultipleMidis(original,poolOfSounds);
-            long endTime = System.currentTimeMillis();
-            time = (endTime - startTime);
-            System.out.println("parallel processing "+ time +"ms" );
+           // fitnessOfMultipleMidis(original,poolOfSounds);
 
-            startTime = System.currentTimeMillis();
+
+//            startTime = System.currentTimeMillis();
             for(int j=0; j<POOL_SIZE; j++) {
                 fit.computeFitnessIndividual(original, poolOfSounds.get(j));
             }
-            endTime = System.currentTimeMillis();
-            time = (endTime - startTime);
-            System.out.println("without parallel processing "+ time +"ms" );
+//           endTime = System.currentTimeMillis();
+//            time = (endTime - startTime);
+//            System.out.println("without parallel processing "+ time +"ms" );
 //            System.out.println("i am here");
 
                 Collections.sort(poolOfSounds,Collections.reverseOrder());
@@ -71,7 +69,11 @@ public class Main {
                 maxFitness = poolOfSounds.get(0).getFitness();
 
             }
+        long endTime = System.currentTimeMillis();
+        time = (endTime - startTime);
+        System.out.println("without parallel processing "+ time +"ms" );
             createMidi(poolOfSounds.get(0),"final");
+
         }
 
 
@@ -91,16 +93,17 @@ public class Main {
             evaluator.setStart(i * forOneThread);
             evaluator.setEnd((i + 1) * forOneThread + 1);
             evaluator.setPoolOfSounds(poolOfSounds);
+            evaluator.setOriginal(original);
             if (i + 1 == THREADS) {
                 evaluator.setEnd(poolOfSounds.size());
             }
             new Thread(evaluator).start();
         }
 
-        // see if all done
+//         see if all done
         while (!parallelFitnessEvaluatorDone()) {
             try {
-                Thread.sleep(50);
+                Thread.sleep(0);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
