@@ -7,6 +7,7 @@ import javax.sound.midi.*;
 import java.io.File;
 import java.util.List;
 
+
 public class CreateMidi {
 
 
@@ -14,7 +15,9 @@ public class CreateMidi {
     private static String SOUND_SAVE_PATH = "SavedSounds/generatedAudio";
     private static String ORIGINAL_PATH = "OriginalSounds/Audio";
 
+    //this function helps to generate back the midi from the indivial with the help of ticks for various generations
 
+    //this function for each generation these are intermediate midis which gets created in Saved sounds
     public static void generateMidi(List<Long> ticks, Individual ind, int tickLength, int generation) {
         List<Genotype> genes = ind.getIndividual();
         try {
@@ -36,6 +39,8 @@ public class CreateMidi {
         }
 
     }
+
+    //this function for generation of goal and final generated individual after GA and store in Original Sounds file
     public static void generateMidi(List<Long> ticks, Individual ind, int tickLength, String type) {
         List<Genotype> genes = ind.getIndividual();
         try {

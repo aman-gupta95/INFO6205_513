@@ -41,8 +41,4 @@ public class Individual implements Comparable<Individual>{
         return fitness.compareTo(o.getFitness());
     }
 
-//    @Override
-//    public String toString() {
-//        return " "+fitness;
-//    }
 }
