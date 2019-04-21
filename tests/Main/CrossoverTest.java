@@ -1,6 +1,7 @@
 package Main;
 
 import GA.CrossOver;
+import GA.Populate;
 import GA.Genotype;
 import GA.Individual;
 import GA.Mutation;
