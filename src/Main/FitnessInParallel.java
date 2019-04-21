@@ -9,10 +9,10 @@ import GA.Individual;
 
 public class FitnessInParallel implements Runnable{
 
-    private int start;
-    private int end;
-    private boolean done = false;
-    private List<Individual> poolOfSounds;
+    private int start;//starting point of individual id for a particular thread
+    private int end;////ending point of individual id for a particular thread
+    private boolean done = false;//status if work is done or not
+    private List<Individual> poolOfSounds;//pool of sounds of a particular thread
 
     private Individual original;
 
@@ -22,7 +22,8 @@ public class FitnessInParallel implements Runnable{
         if (poolOfSounds == null) {
             return;
         }
-
+        //when a thread comes here based on its respective individuals it performs fitness
+        //threads help to process different individuals parallel by dividing work
         for (int i = start; i < end; i++) {
             if (poolOfSounds.get(i).getFitness() == null) {
                 Fitness.computeFitnessIndividual( original,poolOfSounds.get(i));
