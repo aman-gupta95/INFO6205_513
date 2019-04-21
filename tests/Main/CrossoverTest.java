@@ -15,17 +15,17 @@ public class CrossoverTest {
 
     @Test
     public void mateBest(){
-        Genotype gene1= Mutation.getRandomGenes(127, 128);
-        Genotype gene2= Mutation.getRandomGenes(127, 128);
-        Genotype gene5= Mutation.getRandomGenes(127, 128);
+        Genotype gene1= Populate.getRandomGenes(127, 128);
+        Genotype gene2= Populate.getRandomGenes(127, 128);
+        Genotype gene5= Populate.getRandomGenes(127, 128);
         ArrayList<Genotype> originalGenes = new ArrayList<>();
         originalGenes.add(gene1);
         originalGenes.add(gene2);
         originalGenes.add(gene5);
         Individual original = new Individual(originalGenes);
-        Genotype gene3= Mutation.getRandomGenes(127, 128);
-        Genotype gene4= Mutation.getRandomGenes(127, 128);
-        Genotype gene6= Mutation.getRandomGenes(127, 128);
+        Genotype gene3= Populate.getRandomGenes(127, 128);
+        Genotype gene4= Populate.getRandomGenes(127, 128);
+        Genotype gene6= Populate.getRandomGenes(127, 128);
         ArrayList<Genotype> randomGenes = new ArrayList<>();
         randomGenes.add(gene3);
         randomGenes.add(gene4);
