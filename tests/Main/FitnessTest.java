@@ -3,6 +3,7 @@ package Main;
 import GA.Genotype;
 import GA.Individual;
 import GA.Mutation;
+import Main.Fitness;
 import ProcessSound.SeeMidi;
 import org.junit.Test;
 

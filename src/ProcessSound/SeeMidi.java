@@ -21,12 +21,13 @@ public class SeeMidi {
     private  int command;
     private  List<Long> ticks;
 
+    //this function mainly helps to parse the music which is given as input and generate an individual. Convert midi to  Individual having genes
     public ArrayList<Genotype> parseMidi(String filename) throws Exception {
         int[] arr = MidiSystem.getMidiFileTypes(MidiSystem.getSequence(new File(filename)));
         for(int a: arr){
             System.out.print(a+" ");
         }
-        System.out.println();
+        System.out.println("Goal Generation as Individual");
         this.sequence = MidiSystem.getSequence(new File(filename));
         ArrayList<Genotype> originalSound = new ArrayList<>();
         ticks = new ArrayList<>();
@@ -46,12 +47,14 @@ public class SeeMidi {
                         gene.setKey(key);
                         gene.setVelocity(velocity);
                         gene.setNote(true);
+                        System.out.println("tick: "+String.valueOf(event.getTick())+ " Note on, " + " key=" + key + " velocity: " + velocity);
                     } else if (sm.getCommand() == NOTE_OFF) {
                         int key = sm.getData1();
                         int velocity = sm.getData2();
                         gene.setKey(key);
                         gene.setVelocity(velocity);
                         gene.setNote(false);
+                        System.out.println("tick: "+String.valueOf(event.getTick())+" Note off, " + " key=" + key + " velocity: " + velocity);
                     } else {
                         System.out.println("Command:" + sm.getCommand()+" "+ sm.getChannel());
                         this.command = sm.getCommand();
